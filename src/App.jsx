@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import Papa from 'papaparse';
 import DataTable from './components/DataTable';
 import ColumnTable from './components/ColumnTable';
+import './index.css'; // ← wichtig für Tailwind
+
 
 function App() {
   const [columns, setColumns] = useState([]);
@@ -23,14 +25,38 @@ function App() {
   };
 
   return (
-    <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
-      <h1>CSV Preview App</h1>
-      <input type="file" accept=".csv" onChange={handleFileUpload} />
+    <div className="p-6 font-sans">
+
+      {/* Header Row */}
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-2xl font-bold">CSV Preview App</h1>
+
+        <div className="flex items-center space-x-2 text-sm text-gray-700">
+          <span>Check out our Academy & Coaching at:</span>
+          <a
+            href="https://learndataengineering.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src="LDE-Logo.png"
+              alt="LDE Logo"
+              className="w-[300px] h-auto cursor-pointer"
+            />
+          </a>
+        </div>
+      </div>
+
+      {/* Upload */}
+      <input type="file" accept=".csv" onChange={handleFileUpload} className="mb-4" />
+
+      {/* Content */}
       {columns.length > 0 && (
         <>
-          <h2>Example data</h2>
+          <h2 className="text-xl font-semibold mt-6">Example data</h2>
           <DataTable columns={columns} rows={rows} />
-          <h2>Column overview</h2>
+
+          <h2 className="text-xl font-semibold mt-6">Column overview</h2>
           <ColumnTable columns={columns} />
         </>
       )}
